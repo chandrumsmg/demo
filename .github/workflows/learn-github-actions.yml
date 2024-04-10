@@ -1,10 +1,12 @@
 jobs:
-  example_matrix:
+  test:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
+      fail-fast: true
       matrix:
-        version: [10, 12, 14]
-    steps:
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.version }}
-          - run: npm --version
+        version: [6, 7, 8]
+        experimental: [false]
+        include:
+          - version: 9
+            experimental: true
